@@ -38,7 +38,7 @@ class DBStorage:
         '''
         db_dict = {}
 
-        if cls != "":
+        if cls is not None:
             objs = self.__session.query(models.classes[cls]).all()
             for obj in objs:
                 key = "{}.{}".format(obj.__class__.__name__, obj.id)
@@ -88,3 +88,18 @@ class DBStorage:
             Remove private session attribute
         '''
         self.__session.close()
+
+    def get(self, cls, id):
+        '''
+            returns a single object
+        '''
+        for key, value in self.all().items():
+            if key == cls + '.' + id:
+                return value
+        return None
+
+    def count(self, cls=None):
+        '''
+            returns amount of objects
+        '''
+        return len(self.all(cls))
