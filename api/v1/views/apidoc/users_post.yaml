@@ -1,0 +1,30 @@
+Documentation for users POST route, adding a user
+---
+parameters:
+  - name: name
+    in: data
+    type: string
+    required: true
+definitions:
+  User:
+    type: object
+    properties:
+      Attributes:
+        type: array
+        items:
+          $ref: '#/definitions/Attributes'
+  Attributes:
+    type: string
+responses:
+  201:
+    description: The created user
+    schema:
+      $ref: '#/definitions/Attributes'
+    examples:
+      00e93fc3-53ff-4da4-8e72-faa5216f81bb: {"__class__": "User", "created_at": "2017-03-25T02:17:06.000000", "email": "noemail28@gmail.com", "first_name": "Richard", "id": "00e93fc3-53ff-4da4-8e72-faa5216f81bb", "last_name": "Steere", "updated_at": "2017-03-25T02:17:06.000000"}
+  400:
+    description: Invalid JSON
+    examples:
+      this_is_a_garbage_string: "Not a valid JSON"
+      '{"random_attribute": "not an email"}': "Missing email"
+      '{"random_attribute": "not an password"}': "Missing password"

@@ -1,0 +1,19 @@
+Documentation for users GET route, listing users
+---
+definitions:
+  User:
+    type: object
+    properties:
+      Attributes:
+        type: dictionary
+        items:
+          $ref: '#/definitions/Attributes'
+  Attributes:
+    type: string
+responses:
+  200:
+    description: List of all users
+    schema:
+      $ref: '#/definitions/User'
+    examples:
+      curl ... | head -n10 | tail -n9: {"__class__": "User", "created_at": "2017-03-25T02:17:06.000000", "email": "noemail16@gmail.com", "first_name": "Lynn", "id": "7771bbe9-92ab-46d1-a636-864526361d7d", "last_name": "Melton", "updated_at": "2017-03-25T02:17:06.000000"}

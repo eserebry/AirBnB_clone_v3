@@ -1,0 +1,32 @@
+Documentation for users/<user_id> PUT route, updating one state
+---
+parameters:
+  - name : user_id
+    in: path
+    type: string
+    required: true
+definitions:
+  User:
+    type: object
+    properties:
+      Attributes:
+        type: dictionary
+        items:
+          $ref: '#/definitions/Attributes'
+  Attributes:
+    type: string
+responses:
+  200:
+    description: Updates a single user
+    schema:
+      $ref: '#/definitions/User'
+    examples:
+      70b18dcc-08ef-4040-91cf-4075973d320a ... : {"__class__": "User", "created_at": "2017-03-25T02:17:06.000000", "email": "noemail9@gmail.com", "first_name": "Went to the courthouse for a name-change", "id": "70b18dcc-08ef-4040-91cf-4075973d320a", "last_name": "Smiley", "updated_at": "2017-03-25T02:17:06.000000"}
+  404:
+    description: a user that doesn't exist
+    examples:
+      Not_A_User: 404
+  400:
+    description: Invalid JSON
+    examples:
+      this_is_a_garbage_string: "Not a valid JSON"

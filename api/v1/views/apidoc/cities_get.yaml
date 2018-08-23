@@ -1,0 +1,18 @@
+Documentation for cities GET route, listing cities in a state
+---
+definitions:
+  City:
+    type: object
+    properties:
+      Attributes:
+        type: dictionary
+        items:
+          $ref: '#/definitions/Attributes'
+  Attributes:
+    type: string
+responses:
+  200:
+    description: List of all cities
+    schema:
+      $ref: '#/definitions/Cities'
+    examples:

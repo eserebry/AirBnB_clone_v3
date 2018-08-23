@@ -1,0 +1,28 @@
+Documentation for amenities/<amenity_id> DELETE route, deleting one amenity
+---
+parameters:
+  - name : amenity_id
+    in: path
+    type: string
+    required: true
+definitions:
+  Amenity:
+    type: object
+    properties:
+      Attributes:
+        type: dictionary
+        items:
+          $ref: '#/definitions/Attributes'
+  Attributes:
+    type: string
+responses:
+  200:
+    description: Deletes a single amenity, returns a dictionary
+    schema:
+      $ref: '#/definitions/State'
+    examples:
+      4e320c4e-deb6-4ccb-b45e-b77a5df3ff40: {}
+  404:
+    description: an amenity that doesn't exist
+    examples:
+      Not_An_Amenity: 404

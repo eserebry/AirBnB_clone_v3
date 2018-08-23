@@ -1,0 +1,19 @@
+Documentation for amenities GET route, listing amenities
+---
+definitions:
+  Amenity:
+    type: object
+    properties:
+      Attributes:
+        type: dictionary
+        items:
+          $ref: '#/definitions/Attributes'
+  Attributes:
+    type: string
+responses:
+  200:
+    description: List of all amenities
+    schema:
+      $ref: '#/definitions/Amenity'
+    examples:
+      curl ... | head -n8 | tail -n7: {"__class__": "Amenity", "created_at": "2017-03-25T02:17:06.000000", "id": "2f055228-5fd3-4b1d-a021-7e4b9b7d70a6", "name": "TV", "updated_at": "2017-03-25T02:17:06.000000"}

@@ -1,0 +1,32 @@
+Documentation for states/<state_id> PUT route, updating one state
+---
+parameters:
+  - name : state_id
+    in: path
+    type: string
+    required: true
+definitions:
+  State:
+    type: object
+    properties:
+      Attributes:
+        type: dictionary
+        items:
+          $ref: '#/definitions/Attributes'
+  Attributes:
+    type: string
+responses:
+  200:
+    description: Updates a single state
+    schema:
+      $ref: '#/definitions/State'
+    examples:
+      9799648d-88dc-4e63-b858-32e6531bec5c ... : {"__class__": "State", "created_at": "2017-03-25T02:17:06.000000", "id": "9799648d-88dc-4e63-b858-32e6531bec5c", "name": "California is so cool", "updated_at": "2017-03-25T02:17:06.000000"}
+  404:
+    description: a state that doesn't exist
+    examples:
+      Not_A_State: 404
+  400:
+    description: Invalid JSON
+    examples:
+      this_is_a_garbage_string: "Not a valid JSON"

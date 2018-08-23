@@ -1,0 +1,28 @@
+Documentation for users/<user_id> GET route, retrieving one user
+---
+parameters:
+  - name : user_id
+    in: path
+    type: string
+    required: true
+definitions:
+  User:
+    type: object
+    properties:
+      Attributes:
+        type: dictionary
+        items:
+          $ref: '#/definitions/Attributes'
+  Attributes:
+    type: string
+responses:
+  200:
+    description: Retrieves a single user
+    schema:
+      $ref: '#/definitions/User'
+    examples:
+    d622edfa-fc35-4732-b5ec-a15d794267ec: {"__class__": "User", "created_at": "2017-03-25T02:17:06.000000", "email": "noemail7@gmail.com", "first_name": "Roy", "id": "d622edfa-fc35-4732-b5ec-a15d794267ec", "last_name": "Grant", "updated_at": "2017-03-25T02:17:06.000000"}
+  404:
+    description: a user that doesn't exist
+    examples:
+      Not_A_User: 404

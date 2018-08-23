@@ -1,0 +1,28 @@
+Documentation for users/<user_id> DELETE route, deleting one user
+---
+parameters:
+  - name : user_id
+    in: path
+    type: string
+    required: true
+definitions:
+  User:
+    type: object
+    properties:
+      Attributes:
+        type: dictionary
+        items:
+          $ref: '#/definitions/Attributes'
+  Attributes:
+    type: string
+responses:
+  200:
+    description: Deletes a single user, returns a dictionary
+    schema:
+      $ref: '#/definitions/User'
+    examples:
+      61302be9-4b31-4be0-92fc-d0dda253e167: {}
+  404:
+    description: a user that doesn't exist
+    examples:
+      Not_A_User: 404

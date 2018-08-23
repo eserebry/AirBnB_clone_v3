@@ -1,0 +1,28 @@
+Documentation for amenities/<amenity_id> GET route, retrieving one amenity
+---
+parameters:
+  - name : amenity_id
+    in: path
+    type: string
+    required: true
+definitions:
+  Amenity:
+    type: object
+    properties:
+      Attributes:
+        type: dictionary
+        items:
+          $ref: '#/definitions/Attributes'
+  Attributes:
+    type: string
+responses:
+  200:
+    description: Retrieves a single amenitie
+    schema:
+      $ref: '#/definitions/Amenity'
+    examples:
+      f7a087bb-13e2-463d-a951-b8feb7da899f: {"__class__": "Amenity", "created_at": "2017-03-25T02:17:06.000000", "id": "f7a087bb-13e2-463d-a951-b8feb7da899f", "name": "Smoking allowed", "updated_at": "2017-03-25T02:17:06.000000"}
+  404:
+    description: an amenity that doesn't exist
+    examples:
+      Not_An_Amenity: 404

@@ -1,0 +1,29 @@
+Documentation for states POST route, adding a state
+---
+parameters:
+  - name: name
+    in: data
+    type: string
+    required: true
+definitions:
+  State:
+    type: object
+    properties:
+      Attributes:
+        type: array
+        items:
+          $ref: '#/definitions/Attributes'
+  Attributes:
+    type: string
+responses:
+  201:
+    description: The created state
+    schema:
+      $ref: '#/definitions/Attributes'
+    examples:
+      Minnesota: {"__class__": "State", "created_at": "2017-03-25T02:17:06.000000", "id": "b5fc9076-6c20-44a7-ac9b-97de17112329", "name": "Minnesota", "updated_at": "2017-03-25T02:17:06.000000"}
+  400:
+    description: Invalid JSON
+    examples:
+      this_is_a_garbage_string: "Not a valid JSON"
+      '{"random_attribute": "not a name"}': "Missing name"

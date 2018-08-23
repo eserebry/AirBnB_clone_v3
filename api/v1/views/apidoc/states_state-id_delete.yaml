@@ -1,0 +1,28 @@
+Documentation for states/<state_id> DELETE route, deleting one state
+---
+parameters:
+  - name : state_id
+    in: path
+    type: string
+    required: true
+definitions:
+  State:
+    type: object
+    properties:
+      Attributes:
+        type: dictionary
+        items:
+          $ref: '#/definitions/Attributes'
+  Attributes:
+    type: string
+responses:
+  200:
+    description: Deletes a single state, returns a dictionary
+    schema:
+      $ref: '#/definitions/State'
+    examples:
+      9799648d-88dc-4e63-b858-32e6531bec5c: {}
+  404:
+    description: a state that doesn't exist
+    examples:
+      Not_A_State: 404

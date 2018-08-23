@@ -1,0 +1,30 @@
+Documentation for amenities POST route, adding a amenity
+---
+parameters:
+  - name: name
+    in: data
+    type: string
+    required: true
+definitions:
+  Amenity:
+    type: object
+    properties:
+      Attributes:
+        type: array
+        items:
+          $ref: '#/definitions/Attributes'
+  Attributes:
+    type: string
+responses:
+  201:
+    description: The created Amenity
+    schema:
+      $ref: '#/definitions/Attributes'
+    examples:
+      Dryer: {"__class__": "Amenity", "created_at": "2017-03-25T02:17:06.000000", "id": "ea518e20-3370-4cb3-b38f-df1cccbdd8a9", "name": "Dryer", "updated_at": "2017-03-25T02:17:06.000000"
+  }
+  400:
+    description: Invalid JSON
+    examples:
+      this_is_a_garbage_string: "Not a valid JSON"
+      '{"random_attribute": "not a name"}': "Missing name"
