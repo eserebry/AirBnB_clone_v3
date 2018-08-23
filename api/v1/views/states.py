@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''
+all state routes
+'''
 
 import os
 from models import storage, State
