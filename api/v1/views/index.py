@@ -22,7 +22,7 @@ def stats():
         returns amount of each type
     '''
     return jsonify(amenities=storage.count('Amenity'),
-                   citites=storage.count('City'),
+                   cites=storage.count('City'),
                    places=storage.count('Place'),
                    reviews=storage.count('Review'),
                    states=storage.count('State'),
