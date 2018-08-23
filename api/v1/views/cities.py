@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''
+all city routes
+'''
 
 from models import storage, City
 from api.v1.views import app_views
@@ -14,12 +17,12 @@ def cities_of_a_state(state_id):
     '''
     my_state = storage.get('State', state_id)
     if my_state is None:
-        return 404
+        abort(404)
     if request.method == 'POST':
         city_dict = request.get_json()
-        if state_dict is None:
+        if city_dict is None:
             return 'Not a JSON', 400
-        if 'name' not in state_dict.keys():
+        if 'name' not in city_dict.keys():
             return 'Missing name', 400
         city_dict['state_id'] = state_id
         my_city = City(**city_dict)
@@ -40,17 +43,17 @@ def get_city(city_id):
     '''
     my_city = storage.get('City', city_id)
     if my_city is None:
-        return 404
+        abort(404)
     if request.method == 'DELETE':
         storage.delete(my_city)
+        storage.save()
         return jsonify({})
     if request.method == 'PUT':
         city_dict = request.get_json()
         if city_dict is None:
             return 'Not a JSON', 400
         for key, value in city_dict.items():
-            if key != 'id' and key != 'created_at' and key != 'updated_at':
-                if key != 'state_id':
-                    setattr(my_city, key, value)
-            my_city.save()
+            if key not in ['id', 'created_at', 'updated_at', 'state_id']:
+                setattr(my_city, key, value)
+        my_city.save()
     return jsonify(my_city.to_dict())

@@ -93,9 +93,15 @@ class DBStorage:
         '''
             returns a single object
         '''
-        for key, value in self.all().items():
+        my_dict = self.all(cls)
+        key = cls + '.' + id
+        if key in my_dict.keys():
+            return my_dict[key]
+        '''
+        for key, value in self.all(cls).items():
             if key == cls + '.' + id:
                 return value
+        '''
         return None
 
     def count(self, cls=None):
