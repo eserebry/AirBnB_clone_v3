@@ -1,8 +1,5 @@
 #!/usr/bin/python3
 
-import os
-import sys
-sys.path.append(os.getcwd())
 from models import storage
 from flask import Flask, jsonify
 from flask_cors import CORS
@@ -35,4 +32,4 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
+    app.run(host='0.0.0.0', port=5000, threaded=True)
