@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+'''
+This directory contains the views for the api,
+so that the api can query and changes objects with routes
+ '''
 
 from flask import Blueprint
 
