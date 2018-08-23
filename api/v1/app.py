@@ -8,6 +8,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from api.v1.views import app_views
 from flasgger import Swagger
+import os
 
 
 app = Flask(__name__)
@@ -35,4 +36,9 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(5000), threaded=True)
+    try:
+        app.run(host=os.getenv('HBNB_API_HOST'),
+                port=int(os.getenv('HBNB_API_PORT')),
+                threaded=True)
+    except:
+        app.run(host='0.0.0.0', port=5000, threaded=True)
