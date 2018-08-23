@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''
+Main app file
+'''
 
 from models import storage
 from flask import Flask, jsonify

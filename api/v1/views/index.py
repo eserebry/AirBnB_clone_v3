@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''
+contains status and stats routes
+'''
 
 from models import storage
 from api.v1.views import app_views
