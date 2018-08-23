@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''
+all place routes
+'''
 
 from models import storage, Place
 from api.v1.views import app_views
@@ -14,7 +17,7 @@ def places_of_a_city(state_id):
     '''
     my_city = storage.get('City', city_id)
     if my_city is None:
-        return 404
+        abort(404)
     if request.method == 'POST':
         place_dict = request.get_json()
         if place_dict is None:
@@ -28,7 +31,7 @@ def places_of_a_city(state_id):
             my_place = Place(**place_dict)
             my_place.save()
         except:
-            return 404
+            abort(404)
         return jsonify(my_place.to_dict()), 201
     my_places = [place.to_dict() for place in storage.all('Place').values()
                  if place.city_id == city_id]
@@ -45,7 +48,7 @@ def get_place(place_id):
     '''
     my_place = storage.get('Place', place_id)
     if my_place is None:
-        return 404
+        abort(404)
     if request.method == 'DELETE':
         storage.delete(my_place)
         return jsonify({})

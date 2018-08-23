@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''
+all amenity routes
+'''
 
 from os import getcwd
 from models import storage, Amenity

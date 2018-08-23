@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''
+all user routes
+'''
 
 import os
 from models import storage, User

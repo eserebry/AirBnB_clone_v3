@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''
+all review routes
+'''
 
 from models import storage, Review
 from api.v1.views import app_views
@@ -14,18 +17,18 @@ def reviews_of_a_place(place_id):
     '''
     my_place = storage.get('Place', place_id)
     if my_place is None:
-        return 404
+        abort(404)
     if request.method == 'POST':
         review_dict = request.get_json()
         if review_dict is None:
             return 'Not a JSON', 400
-        if 'user_id' not in state_dict.keys():
+        if 'user_id' not in review_dict.keys():
             return 'Missing user_id', 400
         try:
             review_dict['place_id'] = place_id
             my_review = Review(**review_dict)
         except:
-            return 404
+            abort(404)
         my_review.save()
         return jsonify(my_review.to_dict()), 201
     my_reviews = [review.to_dict() for review in storage.all('Review').values()
@@ -43,7 +46,7 @@ def get_city(city_id):
     '''
     my_review = storage.get('Review', review_id)
     if my_review is None:
-        return 404
+        abort(404)
     if request.method == 'DELETE':
         storage.delete(my_review)
         return jsonify({})
