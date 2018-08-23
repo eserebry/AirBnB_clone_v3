@@ -28,6 +28,9 @@ def close_storage(error):
 
 @app.errorhandler(404)
 def page_not_found(e):
+    '''
+        returns error message with 404 on error
+    '''
     return jsonify(error='Not found'), 404
 
 
