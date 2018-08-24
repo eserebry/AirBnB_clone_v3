@@ -26,6 +26,8 @@ def reviews_of_a_place(place_id):
             return 'Missing user_id', 400
         if 'text' not in review_dict.keys():
             return 'Missing text', 400
+        if storage.get('User', review_dict['user_id']) is None:
+            abort(404)
         review_dict['place_id'] = place_id
         my_review = Review(**review_dict)
         my_review.save()
