@@ -3,14 +3,14 @@
 all place routes
 '''
 
-from models import storage, Place
+from models import storage, Place, City
 from api.v1.views import app_views
 from flask import jsonify, abort, request
 
 
 @app_views.route('/cities/<city_id>/places', strict_slashes=False,
                  methods=['GET', 'POST'])
-def places_of_a_city(state_id):
+def places_of_a_city(city_id):
     '''
         GET: list all places in a specific city
         POST: add a place to a specific city
@@ -36,7 +36,6 @@ def places_of_a_city(state_id):
     my_places = [place.to_dict() for place in storage.all('Place').values()
                  if place.city_id == city_id]
     return jsonify(my_places)
-
 
 @app_views.route('/places/<place_id>', strict_slashes=False,
                  methods=['GET', 'DELETE', 'PUT'])
