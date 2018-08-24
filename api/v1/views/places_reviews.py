@@ -38,7 +38,7 @@ def reviews_of_a_place(place_id):
 
 @app_views.route('/reviews/<review_id>', strict_slashes=False,
                  methods=['GET', 'DELETE', 'PUT'])
-def get_city(city_id):
+def get_review(city_id):
     '''
         GET: display a specific review
         DELETE: delete a review
