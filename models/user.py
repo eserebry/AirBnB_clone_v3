@@ -6,7 +6,7 @@
 import hashlib
 from os import getenv
 from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship, validates
+from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
 
 
@@ -24,15 +24,6 @@ class User(BaseModel, Base):
                               cascade="all, delete, delete-orphan")
         reviews = relationship("Review", backref="user",
                                cascade="all, delete, delete-orphan")
-
-        @validates('password')
-        def validate_password(self, key, password):
-            '''
-                hashes password
-            '''
-            m = hashlib.md5()
-            m.update(bytearray(password, 'utf8'))
-            return m.hexdigest()
     else:
         email = ""
         password = ""
@@ -44,7 +35,10 @@ class User(BaseModel, Base):
             hashes password
         '''
         if key == 'password':
+            '''
             m = hashlib.md5()
             m.update(bytearray(value, 'utf8'))
             value = m.hexdigest()
+            '''
+            value = hashlib.md5(value.encode()).hexdigest()
         super().__setattr__(key, value)
