@@ -38,7 +38,7 @@ def reviews_of_a_place(place_id):
 
 @app_views.route('/reviews/<review_id>', strict_slashes=False,
                  methods=['GET', 'DELETE', 'PUT'])
-def get_review(city_id):
+def get_review(review_id):
     '''
         GET: display a specific review
         DELETE: delete a review
@@ -49,6 +49,7 @@ def get_review(city_id):
         abort(404)
     if request.method == 'DELETE':
         storage.delete(my_review)
+        storage.save()
         return jsonify({})
     if request.method == 'PUT':
         review_dict = request.get_json()
@@ -58,5 +59,5 @@ def get_review(city_id):
             if key != 'id' and key != 'created_at' and key != 'updated_at':
                 if key != 'place_id' and key != 'user_id':
                     setattr(my_review, key, value)
-            my_review.save()
+        my_review.save()
     return jsonify(my_review.to_dict())
