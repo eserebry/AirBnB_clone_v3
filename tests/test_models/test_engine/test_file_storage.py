@@ -141,11 +141,13 @@ class testFileStorage(unittest.TestCase):
         self.assertEqual(state_id, get_state.id)
         self.assertTrue(isinstance(get_state, State))
 
-    '''
+
     def test_count(self):
-        Testing count method
-               for i in range(2):
+        '''
+            Testing count method
+        '''
+        for i in range(2):
             new_state = State()
             new_state.save()
-        self.assertEqual(storage.count(State), 2)
-    '''
+        count = self.storage.count()
+        self.assertEqual(count, 7)
