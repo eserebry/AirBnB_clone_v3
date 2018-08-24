@@ -130,7 +130,7 @@ class testFileStorage(unittest.TestCase):
         '''
         self.assertTrue(isinstance(storage, FileStorage))
 
-    def test_get(self):
+    def test_filestorage_get(self):
         '''
             Testing get method
         '''
@@ -143,7 +143,7 @@ class testFileStorage(unittest.TestCase):
         self.assertTrue(isinstance(get_state, State))
         self.assertTrue(isinstance(get_state.id, str))
 
-    def test_count(self):
+    def test_filestorage_count(self):
         '''
             Testing count method
         '''
