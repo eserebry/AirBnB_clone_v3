@@ -52,6 +52,7 @@ def get_amenity(amenity_id):
         abort(404)
     if request.method == 'DELETE':
         storage.delete(my_amenity)
+        storage.save()
         return jsonify({})
     if request.method == 'PUT':
         amenity_dict = request.get_json()
@@ -60,5 +61,5 @@ def get_amenity(amenity_id):
         for key, value in amenity_dict.items():
             if key != 'id' and key != 'created_at' and key != 'updated_at':
                 setattr(my_amenity, key, value)
-            my_amenity.save()
+        my_amenity.save()
     return jsonify(my_amenity.to_dict())

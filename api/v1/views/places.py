@@ -51,6 +51,7 @@ def get_place(place_id):
         abort(404)
     if request.method == 'DELETE':
         storage.delete(my_place)
+        storage.save()
         return jsonify({})
     if request.method == 'PUT':
         place_dict = request.get_json()
@@ -60,5 +61,5 @@ def get_place(place_id):
             if key != 'id' and key != 'created_at' and key != 'updated_at':
                 if key != 'user_id' and key != 'city_id':
                     setattr(my_place, key, value)
-            my_place.save()
+        my_place.save()
     return jsonify(my_place.to_dict())

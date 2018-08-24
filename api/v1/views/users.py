@@ -54,6 +54,7 @@ def get_user(user_id):
         abort(404)
     if request.method == 'DELETE':
         storage.delete(my_user)
+        storage.save()
         return jsonify({})
     if request.method == 'PUT':
         user_dict = request.get_json()
@@ -63,5 +64,5 @@ def get_user(user_id):
             if key != 'id' and key != 'created_at' and key != 'updated_at':
                 if key != 'email':
                     setattr(my_user, key, value)
-            my_user.save()
+        my_user.save()
     return jsonify(my_user.to_dict())
