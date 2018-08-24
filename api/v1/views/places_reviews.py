@@ -24,11 +24,10 @@ def reviews_of_a_place(place_id):
             return 'Not a JSON', 400
         if 'user_id' not in review_dict.keys():
             return 'Missing user_id', 400
-        try:
-            review_dict['place_id'] = place_id
-            my_review = Review(**review_dict)
-        except:
-            abort(404)
+        if 'text' not in review_dict.keys():
+            return 'Missing text', 400
+        review_dict['place_id'] = place_id
+        my_review = Review(**review_dict)
         my_review.save()
         return jsonify(my_review.to_dict()), 201
     my_reviews = [review.to_dict() for review in storage.all('Review').values()
