@@ -133,7 +133,7 @@ class test_DBStorage(unittest.TestCase):
         self.assertEqual(new_state.id, get_state.id)
         self.assertEqual(state_id, get_state.id)
         self.assertTrue(isinstance(get_state, State))
-
+        self.assertTrue(isinstance(get_state.id, str))
 
     def test_count(self):
         '''
@@ -144,3 +144,10 @@ class test_DBStorage(unittest.TestCase):
             new_state.save()
         count = self.storage.count()
         self.assertEqual(count, 7)
+        new_user = User()
+        new_user.save()
+        count = self.storage.count()
+        self.assertEqual(count, 8)
+        count_State = storage.count('State')
+        self.assertEqual(count_State, 2)
+        self.assertTrue(isinstance(count, int))
