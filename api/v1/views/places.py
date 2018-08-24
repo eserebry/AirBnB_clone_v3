@@ -112,7 +112,8 @@ def search_places():
     if search_dict is None:
         return 'Not a JSON', 400
     if len(search_dict) == 0:
-        all_places = [place.to_dict() for place in storage.all('Places')]
+        all_places = [place.to_dict() for key, place
+                      in storage.all('Place').items()]
         return jsonify(all_places)
     city_ids = []
     if 'cities' in search_dict.keys():
@@ -122,11 +123,12 @@ def search_places():
                            [[city.id for city in storage.get('State',
                                                              state_id).cities]
                             for state_id in search_dict['states']])
+    if city_ids == []:
+        city_ids = [city.id for key, city in storage.all('City').items()]
     place_dicts = reduce((lambda x, y: x + y),
                          [places_city(city_id) for city_id in city_ids])
     places_from_cities = [storage.get('Place',
                                       place['id']) for place in place_dicts]
-    str_1 = str(places_from_cities)
     if 'amenities' in search_dict.keys():
         needed_amenities = search_dict['amenities']
         places_with_amenities = [place for place in places_from_cities if
