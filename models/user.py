@@ -24,8 +24,12 @@ class User(BaseModel, Base):
                               cascade="all, delete, delete-orphan")
         reviews = relationship("Review", backref="user",
                                cascade="all, delete, delete-orphan")
+
         @validates('password')
         def validate_password(self, key, password):
+            '''
+                hashes password
+            '''
             m = hashlib.md5()
             m.update(bytearray(password, 'utf8'))
             return m.hexdigest()
@@ -36,6 +40,9 @@ class User(BaseModel, Base):
         last_name = ""
 
     def __setattr__(self, key, value):
+        '''
+            hashes password
+        '''
         if key == 'password':
             m = hashlib.md5()
             m.update(bytearray(value, 'utf8'))
