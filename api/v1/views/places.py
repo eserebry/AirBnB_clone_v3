@@ -37,6 +37,7 @@ def places_of_a_city(city_id):
                  if place.city_id == city_id]
     return jsonify(my_places)
 
+
 @app_views.route('/places/<place_id>', strict_slashes=False,
                  methods=['GET', 'DELETE', 'PUT'])
 def get_place(place_id):
