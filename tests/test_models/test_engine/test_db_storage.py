@@ -75,7 +75,7 @@ class test_DBStorage(unittest.TestCase):
             Testing all function
         '''
         storage.reload()
-        result = storage.all("")
+        result = storage.all()
         self.assertIsInstance(result, dict)
         self.assertEqual(len(result), 0)
         new = User(email="adriel@hbtn.com", password="abc")
@@ -122,11 +122,11 @@ class test_DBStorage(unittest.TestCase):
         '''
         self.assertTrue(isinstance(storage, DBStorage))
 
-    def test_get(self):
+    def test_dbstorage_get(self):
         '''
             Testing get method
         '''
-        new_state = State()
+        new_state = State(name="NewYork")
         state_id = new_state.id
         new_state.save()
         get_state = storage.get('State', state_id)
@@ -135,19 +135,19 @@ class test_DBStorage(unittest.TestCase):
         self.assertTrue(isinstance(get_state, State))
         self.assertTrue(isinstance(get_state.id, str))
 
-    def test_count(self):
+    def test_dbstorage_count(self):
         '''
             Testing count method
         '''
         for i in range(2):
-            new_state = State()
-            new_state.save()
-        count = self.storage.count()
-        self.assertEqual(count, 7)
-        new_user = User()
+            new_state2 = State(name='California')
+            new_state2.save()
+        count = storage.count()
+        self.assertEqual(count, 3)
+        new_user = User(email='Elena@hbtn.com', password='holberton')
         new_user.save()
-        count = self.storage.count()
-        self.assertEqual(count, 8)
+        count = storage.count()
+        self.assertEqual(count, 4)
         count_State = storage.count('State')
-        self.assertEqual(count_State, 2)
+        self.assertEqual(count_State, 3)
         self.assertTrue(isinstance(count, int))
