@@ -5,10 +5,13 @@
 from os import getenv
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker, scoped_session
-import models
+from models.base_model import Base
+from models.user import User
+from models.place import Place
 from models.state import State
 from models.city import City
-from models.base_model import Base
+from models.amenity import Amenity
+from models.review import Review
 
 
 class DBStorage:
@@ -34,26 +37,16 @@ class DBStorage:
 
     def all(self, cls=None):
         '''
-            Query current database session
+            returns all of a class or a specific class
         '''
-        db_dict = {}
-
-        if cls is not None:
-            objs = self.__session.query(models.classes[cls]).all()
-            for obj in objs:
-                key = "{}.{}".format(obj.__class__.__name__, obj.id)
-                db_dict[key] = obj
-            return db_dict
+        if cls is None:
+            objects = [obj for my_class in
+                       [State, User, City, Place, Amenity, Review]
+                       for obj in self.__session.query(my_class).all()]
         else:
-            for k, v in models.classes.items():
-                if k != "BaseModel":
-                    objs = self.__session.query(v).all()
-                    if len(objs) > 0:
-                        for obj in objs:
-                            key = "{}.{}".format(obj.__class__.__name__,
-                                                 obj.id)
-                            db_dict[key] = obj
-            return db_dict
+            objects = self.__session.query(eval(cls)).all()
+        return {'{}.{}'.format(obj.__class__.__name__, obj.id): obj for
+                obj in objects}
 
     def new(self, obj):
         '''
@@ -93,16 +86,10 @@ class DBStorage:
         '''
             returns a single object
         '''
-        my_dict = self.all(cls)
-        key = cls + '.' + id
-        if key in my_dict.keys():
-            return my_dict[key]
-        '''
-        for key, value in self.all(cls).items():
-            if key == cls + '.' + id:
-                return value
-        '''
-        return None
+        try:
+            return self.__session.query(eval(cls)).get(id)
+        except:
+            return None
 
     def count(self, cls=None):
         '''
