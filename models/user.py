@@ -35,10 +35,5 @@ class User(BaseModel, Base):
             hashes password
         '''
         if key == 'password':
-            '''
-            m = hashlib.md5()
-            m.update(bytearray(value, 'utf8'))
-            value = m.hexdigest()
-            '''
             value = hashlib.md5(value.encode()).hexdigest()
         super().__setattr__(key, value)
