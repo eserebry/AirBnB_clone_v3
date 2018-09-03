@@ -11,7 +11,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
-if getenv("HBNB_TYPE_STORAGE", "fs") == "db":
+if getenv("HBNB_TYPE_STORAGE") == "db":
     from models.engine import db_storage
     storage = db_storage.DBStorage()
 else:
